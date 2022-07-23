@@ -110,10 +110,10 @@ kubectl patch storageclass gp2 -p '{"metadata": {"annotations":{"storageclass.ku
     
     ```
     :~/webfocus-ce$kubectl get -n ingress-nginx svc ingress-nginx-controller NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP                                                                     PORT(S)                      AGE
-    ingress-nginx-controller   LoadBalancer   10.100.151.76   a353514927db445ffb7dc73a8b000a9f-49af96b79da480fd.elb.us-west-2.amazonaws.com   80:31453/TCP,443:31142/TCP   4d11h
+    ingress-nginx-controller   LoadBalancer   10.100.151.76   a342344927db445ffb7dc73a8b000a9f-49af96b79da480fd.elb.us-west-2.amazonaws.com   80:31453/TCP,443:31142/TCP   4d11h
     ```
     
-    Make a note of hostname from above like `a353514927db445ffb7dc73a8b000a9f-49af96b79da480fd.elb.us-west-2.amazonaws.com` (ELB address)
+    Make a note of hostname from above like `a342344927db445ffb7dc73a8b000a9f-49af96b79da480fd.elb.us-west-2.amazonaws.com` (ELB address)
         
 13. Now you are ready to start working on WFCE - first, we need to build docker images 
 14. Run script (`scripts/build-images.sh`) that is mentioned in Doc - That script will create 5 Docker images ( we are assuming your Linux box (we call it Build machine or server) has access to the internet - as during Docker build, we do pull images from internet - https://hub.docker.com/r/redhat/ubi8 ]  
@@ -375,7 +375,7 @@ metadata:
   namespace: webfocus
 spec:
   rules:
-  - host: a353514927db445ffb7dc73a8b000a9f-49af96b79da480fd.elb.us-west-2.amazonaws.com
+  - host: a342344927db445ffb7dc73a8b000a9f-49af96b79da480fd.elb.us-west-2.amazonaws.com
     http:
       paths:
       - backend:
@@ -387,7 +387,7 @@ spec:
         pathType: ImplementationSpecific
 ```
 
-Replace hostname `a353514927db445ffb7dc73a8b000a9f-49af96b79da480fd.elb.us-west-2.amazonaws.com` above with hostname you had in step 13 
+Replace hostname `a342344927db445ffb7dc73a8b000a9f-49af96b79da480fd.elb.us-west-2.amazonaws.com` above with hostname you had in step 13 
 
 Now save above output as file called `ingress-new.yaml` 
 Apply to system 
@@ -406,7 +406,7 @@ You can check status of ingress object
 ```
 :~/webfocus-ce$kubectl get -n webfocus ingress
 NAME        CLASS    HOSTS                                                                           ADDRESS                                                                         PORTS   AGE
-appserver   <none>   a353514927db445ffb7dc73a8b000a9f-49af96b79da480fd.elb.us-west-2.amazonaws.com   a353514927db445ffb7dc73a8b000a9f-49af96b79da480fd.elb.us-west-2.amazonaws.com   80      7m10s
+appserver   <none>   a342344927db445ffb7dc73a8b000a9f-49af96b79da480fd.elb.us-west-2.amazonaws.com   a342344927db445ffb7dc73a8b000a9f-49af96b79da480fd.elb.us-west-2.amazonaws.com   80      7m10s
 ```
 
-After few seconds you should be able to access WebFOCUS GUI using URL `http://a353514927db445ffb7dc73a8b000a9f-49af96b79da480fd.elb.us-west-2.amazonaws.com/webfocus/signin` obviously your URL will be different (hostname from step 13)  
+After few seconds you should be able to access WebFOCUS GUI using URL `http://a342344927db445ffb7dc73a8b000a9f-49af96b79da480fd.elb.us-west-2.amazonaws.com/webfocus/signin` obviously your URL will be different (hostname from step 13)  
